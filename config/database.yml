@@ -17,7 +17,7 @@ test:
   adapter: postgresql
   encoding: utf8
   database: sample_app2_test
-  username: horok
+  username: horok 
   password: horok
 
 production:
