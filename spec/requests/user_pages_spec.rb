@@ -107,6 +107,23 @@ describe "User pages" do
     end
   end
   
+  describe "profile page" do
+    let(:user) { FactoryGril.create(:user) }
+    let!(:m1)  { FactoryGril.create(:micropost, user: user, content: "Foo") }
+    let!(:m2)  { FactoryGril.create(:micropost, user: user, content: "Bar") }
+    
+    before { visit user_path(user) }
+    
+    it { should have_selector('h1',     text: user.name) }
+    it { should have_selector('title' , text: user.name) }
+    
+    describe "microposts" do
+      it { should have_content(m1.content) }
+      it { should have_content(m2.content) }
+      it { should have_content(user,micropost.count) }
+    end
+  end
+  
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     before do
