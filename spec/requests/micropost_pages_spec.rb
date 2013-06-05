@@ -16,7 +16,11 @@ describe "MicropostPages" do
         expect { click_button "Post" }.not_to change(Micropost, :count)
       end
       
+<<<<<<< HEAD
       describe "error message" do
+=======
+      describe "error messages" do
+>>>>>>> 426d1f5d66ed4d0e98c87b3d4ca88430cea09651
         before { click_button "Post" }
         it { should have_content('error') }
       end
@@ -30,5 +34,8 @@ describe "MicropostPages" do
       end
     end
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> 426d1f5d66ed4d0e98c87b3d4ca88430cea09651
 end
