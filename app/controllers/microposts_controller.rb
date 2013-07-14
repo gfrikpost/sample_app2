@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 class MicropostsController < ApplicationController
-  before_filter :signed_in_user
+  before_filter :signed_in_user, only: [:create, :destroy]
+  before_filter :correct_user,   only: :destroy
   
   def create
     @micropost = current_user.microposts.build(params[:micropost])
@@ -8,28 +8,21 @@ class MicropostsController < ApplicationController
       flash[:success] = "Micropost created!"
       redirect_to root_url
     else
+      @feed_items = []
       render 'static_pages/home'
     end
   end
   
   def destroy
+    @micropost.destroy
+    redirect_to root_url
   end
-end
-=======
-class MicropostsController < ApplicationController
-  before_filter :signed_in_user
-
-  def create
-    @micropost = current_user.microposts.build(params[:micropost])
-    if @micropost.save
-      flash[:success] = "Micropost created"
-      redirect_to root_url
-    else
-      render 'static_pages/home'
+  
+  private
+  
+    def correct_user
+      @micropost = current_user.microposts.find_by_id(params[:id])
+      redirect_to root_url if @micropost.nil?
     end
-  end
-
-  def destroy
-  end
 end
->>>>>>> 426d1f5d66ed4d0e98c87b3d4ca88430cea09651
+
