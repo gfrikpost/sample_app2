@@ -42,4 +42,24 @@ describe "MicropostPages" do
       end
     end
   end
+  
+  describe "should display the number of microposts" do
+    before { visit root_path }
+    it { should have_selector("span", :class => "microposts",
+        :content => "#{user.microposts.count} microposts")  }
+  end
+  
+  describe "pagination" do
+
+      before { 50.times { FactoryGirl.create(:micropost, user: user) }
+                     visit root_path }
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each microposts" do
+        user.microposts.paginate(page: 1).each do |micropost|
+          page.should have_selector('li', text: micropost.content)
+        end
+      end
+    end
 end

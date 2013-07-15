@@ -177,5 +177,18 @@ describe "Authentication" do
       specify { response.should redirect_to(root_path) }
     end
   end
+  
+  describe "link 'delete' not visible for another user" do
+    
+    let(:user) { FactoryGirl.create(:user) }        
+    let(:second_user) { FactoryGirl.create(:user, name: "Bob", email: "another@example.com") }
+    before { user.microposts.build(content: "Foo bar") }
+
+    describe "should not have a delete link" do
+      before { sign_in second_user
+               visit user_path(user) }
+      it { should_not have_link('delete', href: '/microposts/1', title: 'Foo bar') }
+    end
+  end
 end
 

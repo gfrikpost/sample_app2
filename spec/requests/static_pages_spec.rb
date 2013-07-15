@@ -17,11 +17,7 @@ describe "Static pages" do
     it_should_behave_like "all static pages"
     it { should_not have_selector 'title', text: '| Home' }
     
-<<<<<<< HEAD
     describe "for signed-in users" do
-=======
-    describe "for siged-in user" do
->>>>>>> e4aa656a8c34a3937028f835b5c9f8275e9b1095
       let(:user) { FactoryGirl.create(:user) }
       before do
         FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
