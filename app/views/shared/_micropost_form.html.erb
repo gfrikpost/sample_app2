@@ -1,7 +1,16 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="filed">
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    <%= f.text_area :content, placeholder: "Compose new micropost...", class: "symcount", data:{length: 140, provider: "sc1"} %>
+    <span>140 symbols. You used:<span id="sc1">0</span></span>
   </div>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+  <script>
+    $(".symcount").live("keyup",function(){
+      var act_len = $(this).val().length;
+      var value_id = "#"+$(this).data("provider");
+      
+      $(value_id).html(act_len);
+    })
+  </script>
 <% end %>
